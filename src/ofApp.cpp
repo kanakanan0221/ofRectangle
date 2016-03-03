@@ -21,7 +21,7 @@ void ofApp::setup(){
     
     mode = 0;
     
-    change = true;
+    change = false;
     
     
     cam.setOrientation(ofPoint(-20,0,0));
@@ -68,7 +68,7 @@ void ofApp::setup(){
     
     
     
-    //    font.loadFont(<#string filename#>, <#int fontsize#>)
+   
     
 }
 
@@ -156,21 +156,15 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+     cam.begin();
     ofSetColor(30,60,255);
-    //    ofCircle( a,b ,10);
+    
     same.draw(a,b , same.getWidth()*1.5, same.getHeight()*1.5);
-    neko.draw(n, a, neko.getWidth(), neko.getHeight());
+    neko.draw(n, a, neko.getWidth()*2, neko.getHeight()*2);
     rectangle1.set(a,b , same.getWidth()*1.5, same.getHeight()*1.5);//座標、幅、高さをセット
     rectangle2.set(n,a , neko.getWidth(), neko.getHeight());
     
-    //    ofCircle(n, 500, 10);
-    //
-    //    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
-    //    ofScale(-1, 1);
-    //    ofRotateZ(180);
-    //
-    cam.begin();
-    //     cout << "cam" << cam  <<endl;
     
     
     for (int i = 0; i <simpleHands.size(); i++) {
@@ -180,22 +174,27 @@ void ofApp::draw(){
             if(mode == 0){
                 for (int i = 0; i <simpleHands.size(); i++) {
                     for (int f =0; f<5; f++) {
-//                        if(((fingerPos.at(7).x >-130)&&(fingerPos.at(7).x <-110)) && ((fingerPos.at(7).y>-70)&&(fingerPos.at(7).y>-50))){
-//                            
-//                            
-//                            manbo.draw(ofPoint( fingerPos.at(7)) , manbo.getWidth()/2, manbo.getHeight()/2);
-//                            //                            はじめに画像の中心にfinger7がきたらスタートにしたい
-//                            cout << "finger6:"<<fingerPos.at(7).x<<endl;
-//                            
-//                            
-//                        }
-//                        cout << "getwidth :"<<ofGetWidth()/2-100<<endl;
-//                        cout << "finger7-x:"<<fingerPos.at(7).x<<endl;
-//                        cout << "finger7-y:"<<fingerPos.at(7).y<<endl;
-//                        
                         
-                        
-                        //                        manbo.draw(ofPoint( fingerPos.at(7) ) , manbo.getWidth(), manbo.getHeight());
+                        if(((fingerPos.at(7).x >-130)&&(fingerPos.at(7).x <-110)) && ((fingerPos.at(7).y>-70)&&(fingerPos.at(7).y>-50))){
+                            
+                            
+                            manbo.draw(ofPoint( fingerPos.at(7)) , manbo.getWidth()/2, manbo.getHeight()/2);
+                            //                   はじめに画像の中心にfinger7がきたらスタートにしたい
+                            cout << "finger6:"<<fingerPos.at(7).x<<endl;
+                            change =true;
+                            
+                        }
+                        cout << "getwidth :"<<ofGetWidth()/2-100<<endl;
+                        cout << "finger7-x:"<<fingerPos.at(7).x<<endl;
+                        cout << "finger7-y:"<<fingerPos.at(7).y<<endl;
+                        if (change == true) {
+                            
+                            
+                            manbo.draw(ofPoint( fingerPos.at(7) ) , manbo.getWidth(), manbo.getHeight());
+                        }
+                        //                        else{
+                        //                            manbo.draw(0,0,manbo.getWidth(), manbo.getHeight());
+                        //                        }
                         
                         ofSetColor(0, 255, 0);
                         ofDrawSphere(handPos.at(i), 20);
@@ -227,7 +226,8 @@ void ofApp::draw(){
                 //                cout << "finger7 :"<<fingerPos.at(7).x<<endl;
                 //                cout << "wide : :"<<ofGetHeight()/2<<endl;
                 
-            }else if (mode == 1){
+            }
+            if (mode == 1){
                 end.draw(ofGetWidth()/2, ofGetHeight()/2);
                 
             }
@@ -277,16 +277,12 @@ void ofApp::exit(){
 //
 //
 //}
-int ofApp::main(){
-    
-    
-    
-}
+
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if(key == 'a'){
-        aa++;
+        aa = aa+20;
     }
     
     if(key == 'b'){
@@ -294,12 +290,10 @@ void ofApp::keyPressed(int key){
     }
     
     if(key == 'n'){
-        nn++;
+        nn = nn+40;
     }
     
-    //    if(key =='x'){
-    //        same.draw.clear();
-    //    }
+   
     
 }
 
@@ -321,14 +315,6 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    //    if (rectangle1.inside(x, y)) {//もし、マウスがrectangleの中だったら
-    //        cout << "画像の中"<< endl;
-    //        mode = 1;
-    //    }
-    //    if (rectangle2.inside(x, y)) {//もし、マウスがrectangleの中だったら
-    //        cout << "画像の中"<< endl;
-    //        mode = 1;
-    //    }
     
 }
 
