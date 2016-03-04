@@ -116,11 +116,11 @@ void ofApp::update(){
     }
     leap.markFrameAsOld();
     
-    //    if(imgX > 1024  || imgX < 0){
-    //        mode=1;
-    //    }else if(imgY>768 || imgY<0){
-    //        mode=1;
-    //    }
+//        if(imgX > 1024  || imgX < 0){
+//            mode=1;
+//        }else if(imgY>768 || imgY<0){
+//            mode=1;
+//        }
     
     
     a = a +aa;
@@ -129,12 +129,12 @@ void ofApp::update(){
     
     n = n+nn;
     
-    if(a<0 || a>ofGetWidth()){
+    if(a<-500 || a>500){
         aa= -aa;
         
     }
     
-    if(b<0 || b>ofGetHeight()){
+    if(b<-350 || b>350){
         bb = -bb;
         
     }
@@ -158,13 +158,6 @@ void ofApp::update(){
 void ofApp::draw(){
     
      cam.begin();
-    ofSetColor(30,60,255);
-    
-    same.draw(a,b , same.getWidth()*1.5, same.getHeight()*1.5);
-    neko.draw(n, a, neko.getWidth()*2, neko.getHeight()*2);
-    rectangle1.set(a,b , same.getWidth()*1.5, same.getHeight()*1.5);//座標、幅、高さをセット
-    rectangle2.set(n,a , neko.getWidth(), neko.getHeight());
-    
     
     
     for (int i = 0; i <simpleHands.size(); i++) {
@@ -179,6 +172,9 @@ void ofApp::draw(){
                             
                             
                             manbo.draw(ofPoint( fingerPos.at(7)) , manbo.getWidth()/2, manbo.getHeight()/2);
+                            ofSetColor(30,60,255);
+                            
+                           
                             //                   はじめに画像の中心にfinger7がきたらスタートにしたい
                             cout << "finger6:"<<fingerPos.at(7).x<<endl;
                             change =true;
@@ -190,7 +186,23 @@ void ofApp::draw(){
                         if (change == true) {
                             
                             
-                            manbo.draw(ofPoint( fingerPos.at(7) ) , manbo.getWidth(), manbo.getHeight());
+                            manbo.draw(ofPoint( fingerPos.at(7) ) , manbo.getWidth()/2, manbo.getHeight()/2);
+                            
+                            ofSetCircleResolution(255);
+                            same.draw(a,b , same.getWidth()*1.5, same.getHeight()*1.5);
+                            
+                                ofSetCircleResolution(255);
+                            neko.draw(n, a, neko.getWidth()*2, neko.getHeight()*2);
+                            rectangle1.set(a,b , same.getWidth()*1.5, same.getHeight()*1.5);//座標、幅、高さをセット
+                            rectangle2.set(n,a , neko.getWidth()*2, neko.getHeight()*2);
+                            if(imgX > 500  || imgX < -500){
+                                mode=1;
+                            }else if(imgY>350 || imgY<-350){
+                                mode=1;
+                            }
+
+                            
+
                         }
                         //                        else{
                         //                            manbo.draw(0,0,manbo.getWidth(), manbo.getHeight());
@@ -228,7 +240,7 @@ void ofApp::draw(){
                 
             }
             if (mode == 1){
-                end.draw(ofGetWidth()/2, ofGetHeight()/2);
+                end.draw(0,-300,ofGetWidth()/2, ofGetHeight()/2);
                 
             }
             if (rectangle1.inside(fingerPos.at(7).x, fingerPos.at(7).y)) {//もし、manboの画像がrectangleの中だったら
